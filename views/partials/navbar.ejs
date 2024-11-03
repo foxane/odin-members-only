@@ -1,0 +1,56 @@
+<header class="container-fluid mb-3 shadow-sm">
+  <nav class="navbar navbar-light navbar-expand-md">
+    <div class="container-fluid">
+      <a href="/" class="navbar-brand"><h4>Secret Corp</h4></a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto gap-2">
+          <!-- User not logged in -->
+          <% if(!locals.user) { %>
+          <li class="nav-item">
+            <a href="/login" class="btn btn-outline-primary">Log in</a>
+            <a href="/signup" class="btn btn-primary">Sign up</a>
+          </li>
+          <% } else { %>
+          <!-- User logged in -->
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              id="userDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <img
+                src="/images/default.svg"
+                alt="image"
+                width="25"
+                class="rounded-circle border border-primary" />
+              <%= locals.user.full_name %>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+              <li data-bs-toggle="tooltip" data-bs-title="Work in progress">
+                <a class="dropdown-item disabled" href="/profile">Profile</a>
+              </li>
+              <li><a class="dropdown-item" href="/new-post">New post</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" href="/member">All user</a>
+              </li>
+              <li>
+                <a href="/logout" class="text-danger dropdown-item">Log out</a>
+              </li>
+            </ul>
+          </li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

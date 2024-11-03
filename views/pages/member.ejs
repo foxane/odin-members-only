@@ -1,0 +1,69 @@
+<% let is_member = locals.user ? locals.user.is_member : false; let is_admin =
+locals.user ? locals.user.is_admin : false; %>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/metadata') %>
+    <script defer src="/js/index.js"></script>
+    <title>All user</title>
+  </head>
+  <body>
+    <% if(locals.user) { %>
+    <!-- Disable modal when user is not logged in -->
+    <%- include('../partials/joinModal') %> <% } %> <%-
+    include('../partials/navbar') %>
+
+    <main class="container-xl">
+      <!-- Show alert when user not logged in or not a member -->
+      <% if(!locals.user || !locals.user.is_member) { %> <%-
+      include('../partials/alert') %> <% } %>
+
+      <!-- Member table -->
+      <div class="container-xl table-responsive shadow rounded p-3 mt-4">
+        <h2 class="text-center mb-3">Users records</h2>
+        <table class="table rounded">
+          <thead>
+            <th>ID</th>
+            <th>Full name</th>
+            <th>Username</th>
+            <th>Post created</th>
+            <th>Membership</th>
+            <th>Admin</th>
+            <th>Creation Date</th>
+          </thead>
+          <tbody>
+            <% for(const user of locals.users) { %>
+
+            <tr>
+              <td><%= user.id %></td>
+              <% if (!is_member) { %>
+              <td colspan="2" class="table-warning">
+                <em>***********</em>
+              </td>
+              <% } else { %>
+              <td><%= user.full_name %></td>
+              <td><%= user.username %></td>
+              <% } %>
+              <td><%= user.post_count %></td>
+              <td
+                class="<%= user.is_member ? 'table-success' : 'table-danger' %>">
+                <%= user.is_member ? 'Yes' : 'No' %>
+              </td>
+              <td
+                class="<%= user.is_admin ? 'table-success' : 'table-danger' %>">
+                <%= user.is_admin ? 'Yes' : 'No' %>
+              </td>
+              <td>
+                <em class="_date small"><%= user.create_date %></em>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+  </body>
+</html>

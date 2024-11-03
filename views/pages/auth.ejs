@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/metadata') %>
+    <style>
+      .container {
+        max-width: 600px;
+        margin-top: 50px;
+        padding: 30px;
+        border-radius: 8px;
+        background-color: white;
+      }
+      .nav-pills .nav-link.active {
+        background-color: #0d6efd;
+      }
+      .btn-primary {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+      }
+    </style>
+    <script defer src="/js/auth.js"></script>
+    <title>Log in or Sign up</title>
+  </head>
+  <body class="d-flex flex-column justify-content-between">
+    <%- include('../partials/navbar') %>
+
+    <main class="container shadow">
+      <h2 id="welcomeMessage" class="text-center mb-4">Welcome back</h2>
+
+      <!-- Nav pills -->
+      <ul class="nav nav-tabs justify-content-center mb-4" id="tabs">
+        <li class="nav-item">
+          <a
+            id="loginBtn"
+            class="nav-link active"
+            href="#login"
+            data-bs-toggle="tab"
+            >Login</a
+          >
+        </li>
+        <li class="nav-item">
+          <a id="signupBtn" class="nav-link" href="#signup" data-bs-toggle="tab"
+            >Signup</a
+          >
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <!-- Login -->
+        <div class="tab-pane fade show active" id="login">
+          <form action="/login" method="post">
+            <!-- Errors messages -->
+            <% if (locals.errType === 'login') { %>
+            <div class="alert alert-danger mb-3 pb-0">
+              <ul>
+                <% for (const err of locals.errors) { %>
+                <li><%= err.msg %></li>
+
+                <% } %>
+              </ul>
+            </div>
+            <% } %>
+            <div class="mb-3">
+              <label for="loginUsername" class="form-label">Username</label>
+              <input
+                name="username"
+                type="text"
+                class="form-control"
+                id="loginUsername"
+                required />
+            </div>
+            <div class="mb-3">
+              <label for="loginPassword" class="form-label">Password</label>
+              <input
+                name="password"
+                type="password"
+                class="form-control"
+                id="loginPassword"
+                required />
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="huh1" />
+              <label class="form-check-label mb-3" for="huh1">
+                This checkbox is lying
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+          </form>
+        </div>
+        <!-- Signup -->
+        <div class="tab-pane fade" id="signup">
+          <form action="/signup" method="post" id="signupForm">
+            <!-- Success messages -->
+            <% if (locals.success) { %>
+            <div class="alert alert-success mb-3">
+              Account created successfully, you may log in now.
+            </div>
+            <% } %>
+            <!-- Errors messages -->
+            <% if (locals.errType === 'signup') { %>
+            <div class="alert alert-danger mb-3 pb-0">
+              <ul>
+                <% for (const err of locals.errors) { %>
+                <li><%= err.msg %></li>
+                <% } %>
+              </ul>
+            </div>
+            <% } %>
+            <div class="mb-3">
+              <label for="signupFullName" class="form-label">Full name</label>
+              <input
+                name="fullName"
+                type="text"
+                class="form-control"
+                id="signupFullName"
+                required />
+            </div>
+            <div class="mb-3">
+              <label for="signupUsername" class="form-label">Username</label>
+              <input
+                name="username"
+                type="text"
+                class="form-control"
+                id="signupUsername"
+                required />
+            </div>
+            <div class="mb-3">
+              <label for="signupPassword" class="form-label">Password</label>
+              <input
+                name="password"
+                type="password"
+                class="form-control"
+                id="signupPassword"
+                required />
+            </div>
+            <div class="mb-3">
+              <label for="signupConfirmPassword" class="form-label"
+                >Confirm Password</label
+              >
+              <input
+                name="confirmPassword"
+                type="password"
+                class="form-control"
+                id="signupConfirmPassword"
+                required />
+              <div
+                id="confirmPasswordWarning"
+                class="form-text text-danger d-none">
+                <strong> Passwords do not match. Please try again. </strong>
+              </div>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="huh" />
+              <label class="form-check-label mb-3" for="huh">
+                The other checkbox is telling the truth
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Signup</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+  </body>
+</html>

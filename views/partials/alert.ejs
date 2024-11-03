@@ -1,0 +1,18 @@
+<div
+  class="container-md alert alert-primary text-center pb-0 mx-auto"
+  role="alert">
+  <% if (!locals.user) { %>
+  <p>
+    To create new post, you need to
+    <a href="/login" class="alert-link">Log in</a> first.
+  </p>
+  <% } else if (!locals.user.is_member) { %>
+  <p>
+    To see the user's name, you need to
+    <a data-bs-toggle="modal" href="#joinModal" class="alert-link"
+      >Join our membership</a
+    >
+    first.
+  </p>
+  <% } %>
+</div>

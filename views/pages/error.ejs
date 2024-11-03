@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/metadata') %>
+    <title>Create new post</title>
+    <style>
+      .container {
+        max-width: 600px;
+        margin-top: 50px;
+        padding: 30px;
+        border-radius: 8px;
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../partials/navbar') %>
+
+    <main>
+      <div class="text-center container shadow row mx-auto">
+        <h4 class="mb-5">A wild error has been found!</h4>
+        <div class="mx-auto col-auto alert alert-danger fw-bold">
+          <%= error %>
+        </div>
+      </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+  </body>
+</html>

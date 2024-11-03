@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/metadata') %>
+    <title>Create new post</title>
+    <style>
+      .container {
+        max-width: 600px;
+        margin-top: 50px;
+        padding: 30px;
+        border-radius: 8px;
+        background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../partials/navbar') %>
+
+    <main>
+      <div class="container shadow">
+        <form action="/new-post" method="post">
+          <% if (locals.errors) { %>
+          <div class="alert alert-danger pb-0">
+            <ul class="">
+              <% for (const err of locals.errors) {%>
+              <li><%= err.msg %></li>
+              <% } %>
+            </ul>
+          </div>
+          <% } %>
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              name="title"
+              minlength="5"
+              maxlength="100"
+              required />
+          </div>
+          <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea
+              rows="10"
+              class="form-control"
+              name="content"
+              id="content"
+              placeholder="Your message goes here"
+              minlength="10"
+              maxlength="500"
+              required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </main>
+
+    <%- include('../partials/footer') %>
+  </body>
+</html>

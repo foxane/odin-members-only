@@ -1,0 +1,85 @@
+<% let is_member = locals.user ? locals.user.is_member : false; let is_admin =
+locals.user ? locals.user.is_admin : false; %>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/metadata') %>
+    <script defer src="/js/index.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <% if(locals.user) { %>
+    <!-- Disable modal when user is not logged in -->
+    <%- include('../partials/joinModal') %> <% } %> <%-
+    include('../partials/navbar') %>
+
+    <main class="container">
+      <!-- Show alert when user not logged in or not a member -->
+      <% if(!locals.user || !locals.user.is_member) { %> <%-
+      include('../partials/alert') %> <% } %>
+
+      <!-- Posts -->
+      <% if(!locals.posts) { %>
+      <div class="row">
+        <h1 class="text-center mb-5">Not a single post found</h1>
+        <a href="/new-post" class="btn btn-primary col-auto mx-auto"
+          >Create new post</a
+        >
+      </div>
+
+      <% } else { for (const post of locals.posts){ %>
+      <!-- Posts card -->
+      <section class="container-sm border shadow rounded mb-3">
+        <!-- Posts header -->
+        <div class="row">
+          <div class="col-auto d-flex align-items-center">
+            <img
+              class="rounded-circle border border-dark p-0"
+              src="/images/default.svg"
+              alt="avatar"
+              width="30" />
+          </div>
+          <div class="col">
+            <p class="row mb-0 mt-2 small">
+              <strong><%= is_member ? post.full_name : '*********' %></strong>
+            </p>
+            <p class="row mt-0 small">
+              <i class="_date"> <%= post.create_date %></i>
+            </p>
+          </div>
+          <div
+            class="col-auto"
+            data-bs-toggle="tooltip"
+            data-bs-title="Delete post, admin only">
+            <a
+              href="/delete/<%=post.id%>"
+              class="btn btn-danger mt-2 <%= is_admin ? '' : 'disabled' %>"
+              ><svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                viewBox="0 0 16 16">
+                <path
+                  d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z" />
+                <path
+                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z" /></svg
+            ></a>
+          </div>
+        </div>
+
+        <!-- Posts content -->
+        <div class="row">
+          <div class="col-12">
+            <strong class="fs-5 p-2 mb-3"><%= post.title %></strong>
+            <p class="p-2"><%= post.content %></p>
+          </div>
+        </div>
+      </section>
+      <% }} %>
+    </main>
+
+    <%- include('../partials/footer') %>
+  </body>
+</html>
