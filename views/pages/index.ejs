@@ -6,7 +6,7 @@ locals.user ? locals.user.is_admin : false; %>
   <head>
     <%- include('../partials/metadata') %>
     <script defer src="/js/index.js"></script>
-    <title>Document</title>
+    <title>Secret Crops</title>
   </head>
   <body>
     <% if(locals.user) { %>
@@ -14,7 +14,7 @@ locals.user ? locals.user.is_admin : false; %>
     <%- include('../partials/joinModal') %> <% } %> <%-
     include('../partials/navbar') %>
 
-    <main class="container">
+    <main class="container-md" style="max-width: 900px">
       <!-- Show alert when user not logged in or not a member -->
       <% if(!locals.user || !locals.user.is_member) { %> <%-
       include('../partials/alert') %> <% } %>
